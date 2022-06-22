@@ -20,4 +20,16 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+    @Bean
+    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.authorizeRequests()
+                .mvcMatchers("/", "/members/**",
+                        "/static/images/item/**", "/images/**").permitAll()
+                .anyRequest().authenticated();
+
+        http.csrf().disable();
+
+        return http.build();
+    }
+
 }
