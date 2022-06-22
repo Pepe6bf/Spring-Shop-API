@@ -3,6 +3,7 @@ package shop.spring.dev.springshop.domain.member;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.br.CPF;
 import shop.spring.dev.springshop.constant.Role;
 
 import javax.persistence.*;
@@ -18,17 +19,19 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, length = 100)
+    @Column(unique = true, length = 100, nullable = false)
     private String email;
 
+    @Column(nullable = false)
     private String password;
 
-    @Column(length = 50)
+    @Column(length = 50, nullable = false)
     private String name;
 
-    @Column(length = 200)
+    @Column(length = 200, nullable = false)
     private String address;
 
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Role role;
 
