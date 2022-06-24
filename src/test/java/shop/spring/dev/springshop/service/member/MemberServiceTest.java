@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import shop.spring.dev.springshop.constant.MemberRole;
+import shop.spring.dev.springshop.constant.MemberStatus;
 import shop.spring.dev.springshop.domain.member.Member;
 import shop.spring.dev.springshop.domain.member.MemberRepository;
 import shop.spring.dev.springshop.dto.member.MemberSaveRequestDto;
@@ -55,6 +56,7 @@ class MemberServiceTest {
         assertThat(savedMember.getName()).isEqualTo(requestDto.getName());
         assertThat(savedMember.getAddress()).isEqualTo(requestDto.getAddress());
         assertThat(savedMember.getRole()).isEqualTo(MemberRole.USER);
+        assertThat(savedMember.getStatus()).isEqualTo(MemberStatus.ACTIVE);
     }
 
     @Test
@@ -72,6 +74,4 @@ class MemberServiceTest {
                 .isInstanceOf(IllegalStateException.class)
                 .hasMessageContaining("이미 가입된 회원입니다.");
     }
-
-
 }
