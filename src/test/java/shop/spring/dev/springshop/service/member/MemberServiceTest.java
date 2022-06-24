@@ -1,17 +1,15 @@
 package shop.spring.dev.springshop.service.member;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.test.context.jdbc.Sql;
-import shop.spring.dev.springshop.constant.Role;
+import shop.spring.dev.springshop.constant.MemberRole;
 import shop.spring.dev.springshop.domain.member.Member;
 import shop.spring.dev.springshop.domain.member.MemberRepository;
-import shop.spring.dev.springshop.domain.member.MemberSaveRequestDto;
+import shop.spring.dev.springshop.dto.member.MemberSaveRequestDto;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -56,7 +54,7 @@ class MemberServiceTest {
         assertThat(passwordEncoder.matches(requestDto.getPassword(), savedMember.getPassword())).isTrue();
         assertThat(savedMember.getName()).isEqualTo(requestDto.getName());
         assertThat(savedMember.getAddress()).isEqualTo(requestDto.getAddress());
-        assertThat(savedMember.getRole()).isEqualTo(Role.USER);
+        assertThat(savedMember.getRole()).isEqualTo(MemberRole.USER);
     }
 
     @Test

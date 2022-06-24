@@ -4,10 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import shop.spring.dev.springshop.constant.Role;
+import shop.spring.dev.springshop.constant.MemberStatus;
+import shop.spring.dev.springshop.constant.MemberRole;
 import shop.spring.dev.springshop.domain.member.Member;
 import shop.spring.dev.springshop.domain.member.MemberRepository;
-import shop.spring.dev.springshop.domain.member.MemberSaveRequestDto;
+import shop.spring.dev.springshop.dto.member.MemberSaveRequestDto;
 
 @RequiredArgsConstructor
 @Transactional
@@ -27,7 +28,28 @@ public class MemberService {
                         .password(passwordEncoder.encode(requestDto.getPassword()))
                         .name(requestDto.getName())
                         .address(requestDto.getAddress())
-                        .role(Role.USER)
+                        .role(MemberRole.USER)
+                        .status(MemberStatus.ACTIVE)
+                        .build()
+        );
+    }
+
+    /**
+     * 테스트용
+     * 나중에 삭제 할 것!!
+     */
+    public Member saveAdmin(MemberSaveRequestDto requestDto) {
+        // 중복 회원 검증
+        validateDuplicateMember(requestDto.getEmail());
+
+        return memberRepository.save(
+                Member.builder()
+                        .email(requestDto.getEmail())
+                        .password(passwordEncoder.encode(requestDto.getPassword()))
+                        .name(requestDto.getName())
+                        .address(requestDto.getAddress())
+                        .role(MemberRole.ADMIN)
+                        .status(MemberStatus.ACTIVE)
                         .build()
         );
     }
@@ -38,5 +60,4 @@ public class MemberService {
             throw new IllegalStateException("이미 가입된 회원입니다.");
         }
     }
-
 }
