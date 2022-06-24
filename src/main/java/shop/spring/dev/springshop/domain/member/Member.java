@@ -3,8 +3,8 @@ package shop.spring.dev.springshop.domain.member;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.br.CPF;
-import shop.spring.dev.springshop.constant.Role;
+import shop.spring.dev.springshop.constant.MemberStatus;
+import shop.spring.dev.springshop.constant.MemberRole;
 
 import javax.persistence.*;
 
@@ -33,14 +33,23 @@ public class Member {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private MemberRole role;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private MemberStatus status;
 
     @Builder
-    public Member(String email, String password, String name, String address, Role role) {
+    public Member(String email, String password, String name, String address, MemberRole role, MemberStatus status) {
         this.email = email;
         this.password = password;
         this.name = name;
         this.address = address;
         this.role = role;
+        this.status = status;
+    }
+
+    public Boolean isActivated() {
+        return status == MemberStatus.ACTIVE;
     }
 }

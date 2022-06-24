@@ -1,5 +1,5 @@
 package shop.spring.dev.springshop.constant;
 
-public enum Role {
-    USER,ADMIN
+public enum MemberStatus {
+    ACTIVE, DORMANT,
 }
