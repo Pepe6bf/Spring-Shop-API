@@ -79,6 +79,8 @@ public class SecurityConfig {
                 .antMatchers("/login").permitAll()
                 // 회원 가입을 위한 api
                 .antMatchers("/signup", "/signup-admin").permitAll()
+                // /admin으로 시작하는 요청은 관리자만 접근 가능
+                .antMatchers("/admin/**").hasRole("ADMIN")
                 // 나머지는 모두 인증 필요
                 .anyRequest().authenticated();
 
