@@ -5,18 +5,19 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import shop.spring.dev.springshop.constant.MemberStatus;
 import shop.spring.dev.springshop.constant.MemberRole;
+import shop.spring.dev.springshop.domain.global.BaseEntity;
+import shop.spring.dev.springshop.domain.global.BaseTimeEntity;
 
 import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor
-@Entity
 @Table(name = "member")
-public class Member {
+@Entity
+public class Member extends BaseEntity {
 
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(unique = true, length = 100, nullable = false)
