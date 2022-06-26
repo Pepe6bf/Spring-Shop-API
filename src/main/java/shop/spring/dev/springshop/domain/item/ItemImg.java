@@ -17,7 +17,7 @@ public class ItemImg extends BaseEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String imgName; // 이미지 파일명
+    private String storedImgName; // 이미지 파일명
 
     private String originalImgName; // 원본 이미지 파일명
 
@@ -30,16 +30,16 @@ public class ItemImg extends BaseEntity {
     private Item item;
 
     @Builder
-    public ItemImg(String imgName, String originalImgName, String imgUrl, Boolean isThumbnail, Item item) {
-        this.imgName = imgName;
+    public ItemImg(String storedImgName, String originalImgName, String imgUrl, Boolean isThumbnail, Item item) {
+        this.storedImgName = storedImgName;
         this.originalImgName = originalImgName;
         this.imgUrl = imgUrl;
         this.isThumbnail = isThumbnail;
         this.item = item;
     }
 
-    public void updateItemImg(String imgName, String originalImgName, String imgUrl) {
-        this.imgName = imgName;
+    public void updateItemImg(String storedImgName, String originalImgName, String imgUrl) {
+        this.storedImgName = storedImgName;
         this.originalImgName = originalImgName;
         this.imgUrl = imgUrl;
     }
