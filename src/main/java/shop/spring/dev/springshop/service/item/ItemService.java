@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import shop.spring.dev.springshop.domain.item.Item;
-import shop.spring.dev.springshop.domain.item.ItemImgRepository;
 import shop.spring.dev.springshop.domain.item.ItemRepository;
 import shop.spring.dev.springshop.dto.item.ItemSaveRequestDto;
 
@@ -14,8 +13,6 @@ import shop.spring.dev.springshop.dto.item.ItemSaveRequestDto;
 public class ItemService {
 
     private final ItemRepository itemRepository;
-    private final ItemImgService itemImgService;
-    private final ItemImgRepository itemImgRepository;
 
     public Long saveItem(ItemSaveRequestDto itemSaveRequestDto) throws Exception {
 
