@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import shop.spring.dev.springshop.constant.ItemSellStatus;
 import shop.spring.dev.springshop.domain.global.BaseEntity;
+import shop.spring.dev.springshop.dto.item.ItemUpdateRequestDto;
 
 import javax.persistence.*;
 
@@ -41,5 +42,13 @@ public class Item extends BaseEntity {
         this.stockNumber = stockNumber;
         this.itemDetail = itemDetail;
         this.itemSellStatus = itemSellStatus;
+    }
+
+    public void updateItem(ItemUpdateRequestDto itemUpdateRequestDto) {
+        this.itemName = itemUpdateRequestDto.getItemName();
+        this.price = itemUpdateRequestDto.getPrice();
+        this.stockNumber = itemUpdateRequestDto.getStockNumber();
+        this.itemDetail = itemUpdateRequestDto.getItemDetail();
+        this.itemSellStatus = itemUpdateRequestDto.getItemSellStatus();
     }
 }

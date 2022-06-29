@@ -10,6 +10,7 @@ import shop.spring.dev.springshop.domain.item.ItemRepository;
 import shop.spring.dev.springshop.dto.item.ItemImgDto;
 import shop.spring.dev.springshop.dto.item.ItemResponseDto;
 import shop.spring.dev.springshop.dto.item.ItemSaveRequestDto;
+import shop.spring.dev.springshop.dto.item.ItemUpdateRequestDto;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
@@ -56,5 +57,17 @@ public class ItemService {
                 .orElseThrow(EntityNotFoundException::new);
 
         return ItemResponseDto.of(findItem, itemImgDtoList);
+    }
+
+    /**
+     * 상품 정보 수정 메서드
+     */
+    public Long updateItem(Long itemId, ItemUpdateRequestDto updateRequestDto) {
+
+        Item item = itemRepository.findById(itemId)
+                .orElseThrow(EntityNotFoundException::new);
+        item.updateItem(updateRequestDto);
+
+        return item.getId();
     }
 }
