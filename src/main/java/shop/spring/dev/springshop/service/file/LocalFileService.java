@@ -1,5 +1,6 @@
 package shop.spring.dev.springshop.service.file;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -7,13 +8,16 @@ import java.io.File;
 import java.util.UUID;
 
 @Service
-public class FileService {
+public class LocalFileService {
 
-    public String uploadFile(String uploadPath, String originalFileName,
+    @Value("${file.item_img-storage-location}")
+    private String itemImgStorageLocation;
+
+    public String uploadFile(String originalFileName,
                              MultipartFile fileData) throws Exception {
 
         String storedFileName = getStoredFileName(originalFileName);
-        String storedFullPath = uploadPath + "/" + storedFileName;
+        String storedFullPath = getImgStoredFullPath(storedFileName);
 
         // 파일 업로드
         fileData.transferTo(new File(storedFullPath));
@@ -36,5 +40,9 @@ public class FileService {
         } else {
             System.out.println("파일 없어욤...");
         }
+    }
+
+    public String getImgStoredFullPath(String storedFileName) {
+        return itemImgStorageLocation + "/" + storedFileName;
     }
 }
