@@ -31,7 +31,8 @@ public class LocalFileService {
         return uuid.toString() + "." + extension;
     }
 
-    public void deleteFile(String filePath) throws Exception {
+    public void deleteFile(String storedFileName) throws Exception {
+        String filePath = getImgStoredFullPath(storedFileName);
         File deleteFile = new File(filePath);
 
         if (deleteFile.exists()) {
