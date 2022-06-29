@@ -1,7 +1,6 @@
 package shop.spring.dev.springshop.service.item;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -10,7 +9,7 @@ import shop.spring.dev.springshop.domain.item.Item;
 import shop.spring.dev.springshop.domain.item.ItemImg;
 import shop.spring.dev.springshop.domain.item.ItemImgRepository;
 import shop.spring.dev.springshop.domain.item.ItemRepository;
-import shop.spring.dev.springshop.service.file.FileService;
+import shop.spring.dev.springshop.service.file.LocalFileService;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,12 +19,9 @@ import java.util.Optional;
 @Service
 public class ItemImgService {
 
-    @Value("${file.item_img-storage-location}")
-    private String itemImgStorageLocation;
-
     private final ItemRepository itemRepository;
     private final ItemImgRepository itemImgRepository;
-    private final FileService fileService;
+    private final LocalFileService localFileService;
 
     public Long saveItemImg(Long itemId, List<MultipartFile> itemImgFileList) throws Exception {
 
@@ -39,11 +35,11 @@ public class ItemImgService {
             String storedImgName = null;
             String storedImgUrl = null;
 
-            // 파일 업로드 (리소스 스토리지)
+            // 파일 업로드 (로컬 리소스 스토리지)
             if (StringUtils.hasText(originalImgName)) {
                 storedImgName = fileUploadToLocal(originalImgName, itemImgFile);
             }
-            storedImgUrl = "/images/item/" + storedImgName;
+            storedImgUrl = "/storage/images/item/" + storedImgName;
 
             // 상품 이미지의 정보를 DB에 저장
             ItemImg itemImg = ItemImg.builder()
@@ -60,8 +56,9 @@ public class ItemImgService {
         return item.get().getId();
     }
 
+    // 로컬 폴더에 이미지 저장
     private String fileUploadToLocal(String originalImgName, MultipartFile itemImgFile) throws Exception {
-        return fileService.uploadFile(itemImgStorageLocation, originalImgName, itemImgFile);
+        return localFileService.uploadFile(originalImgName, itemImgFile);
 
     }
 }

@@ -3,6 +3,7 @@ package shop.spring.dev.springshop.service.item;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -27,6 +28,9 @@ class ItemImgServiceTest {
     @Autowired ItemImgRepository itemImgRepository;
     @Autowired ItemService itemService;
 
+    @Value("${file.item_img-storage-location}")
+    private String itemImgStorageLocation;
+
     Long saveItem() throws Exception {
         ItemSaveRequestDto requestDto = ItemSaveRequestDto.builder()
                 .itemName("test production")
@@ -44,9 +48,8 @@ class ItemImgServiceTest {
         List<MultipartFile> multipartFileList = new ArrayList<>();
 
         for (int i = 0; i < 5; i++) {
-            String path = "/Users/kmo/Study/toy-project/spring-shop/project/storage/imgs";
             String imgName = "image" + i + ".jpg";
-            MockMultipartFile multipartFile = new MockMultipartFile(path, imgName, "image/jpg", new byte[]{1, 2, 3, 4});
+            MockMultipartFile multipartFile = new MockMultipartFile(itemImgStorageLocation, imgName, "image/jpg", new byte[]{1, 2, 3, 4});
             multipartFileList.add(multipartFile);
         }
 
