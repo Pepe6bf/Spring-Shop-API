@@ -1,6 +1,5 @@
 package shop.spring.dev.springshop.service.item;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,6 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import shop.spring.dev.springshop.constant.ItemSellStatus;
-import shop.spring.dev.springshop.controller.item.ItemController;
 import shop.spring.dev.springshop.domain.item.Item;
 import shop.spring.dev.springshop.domain.item.ItemImg;
 import shop.spring.dev.springshop.domain.item.ItemImgRepository;
